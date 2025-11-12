@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rave Teleport</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-ar@1.5.0"></script>
+  <style>body { margin: 0; }</style>
+</head>
+<body>
+  <a-scene embedded arjs="trackingMethod: best;">
+    <a-camera></a-camera>
+    <a-videosphere src="https://i.imgur.com/8x8mK1P.mp4" rotation="0 180 0" loop="true" autoplay></a-videosphere>
+    <a-entity light="type: point; color: #00ffff; intensity: 2"
+              animation="property: light.intensity; from: 0; to: 3; dur: 400; loop: true; dir: alternate"></a-entity>
+    <a-entity sound="src: https://cdn.freesound.org/previews/612/612612_5674468-lq.mp3; autoplay: true; loop: true; volume: 0.5"></a-entity>
+  </a-scene>
+</body>
+</html>
