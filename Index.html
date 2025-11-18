@@ -2,6 +2,35 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rave DJ – vidar</title>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tone"></script>
+  <style>body{margin:0;background:#000}</style>
+</head>
+<body>
+<video id="vid" style="position:absolute;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)"></video>
+<h1 style="position:absolute;top:20px;left:0;width:100%;text-align:center;color:#fff;text-shadow:0 0 20px #f0f;z-index:2">JUMP = KICK</h1>
+
+<script>
+const video = document.getElementById('vid');
+navigator.mediaDevices.getUserMedia({video:true}).then(s=>video.srcObject=s);
+
+const pose = new Pose({locateFile:f=>`https://cdn.jsdelivr.net/npm/@mediapipe/pose/${f}`});
+pose.setOptions({modelComplexity:1});
+pose.onResults(r=>{
+  if(r.poseLandmarks){
+    const feetY = Math.max(r.poseLandmarks[27].y, r.poseLandmarks[28].y);
+    if(feetY < 0.4) new Tone.Player("https://cdn.freesound.org/previews/467/467947_5121236-lq.mp3").toDestination().start();
+  }
+});
+const cam = new Camera(video,{onFrame:()=>pose.send({image:video})});
+cam.start();
+</script>
+</body>
+</html>!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rave Teleport</title>
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aframe-ar@1.5.0"></script>
